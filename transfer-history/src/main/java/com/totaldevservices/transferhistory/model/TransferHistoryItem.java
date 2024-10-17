@@ -20,7 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "transferhistory")
+@Table(name = "transfer_history")
 public class TransferHistoryItem {
 
     // TODO: Add constraints in model and in service impl
@@ -31,99 +31,43 @@ public class TransferHistoryItem {
     @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID id;
 
-    @Column(name = "player_name")
-    @Schema(name = "player_name", example = "Dan Smith", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String playerName;
+    @Column(name = "player_id")
+    @Schema(name = "player_id", example = "Dan Smith", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String playerId;
 
-    @Column(name = "from_team")
-    @Schema(name = "from_team", example = "Thiep FC", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String fromTeam;
-
-    @Column(name = "to_team")
-    @Schema(name = "to_team", example = "AC Lion", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String toTeam;
-
-    @Column(name = "player_name")
-    @Schema(name = "player_name", example = "LTB", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String loanType;
-
-    @Column(name = "transferhistory_type")
-    @Schema(name = "transferType", example = "Loan", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String transferType;
-
-    @Column(name = "transferhistory_amount")
-    @Schema(name = "amount", example = "25", requiredMode = Schema.RequiredMode.REQUIRED)
-    private double wage;
-
-    @Column(name = "transferhistory_amount")
-    @Schema(name = "amount", example = "25", requiredMode = Schema.RequiredMode.REQUIRED)
-    private double releaseClauseAmount;
-
-    @Column(name = "transferhistory_amount")
-    @Schema(name = "amount", example = "25", requiredMode = Schema.RequiredMode.REQUIRED)
-    private double bonus;
-
-    @Column(name = "transferhistory_amount")
-    @Schema(name = "amount", example = "25", requiredMode = Schema.RequiredMode.REQUIRED)
-    private double signonBonus;
-
-    @Column(name = "transferhistory_amount")
-    @Schema(name = "amount", example = "25", requiredMode = Schema.RequiredMode.REQUIRED)
-    private double bonusType;
-
-    @Column(name = "player_name")
-    @Schema(name = "player_name", example = "Dan Smith", requiredMode = Schema.RequiredMode.REQUIRED)
-    private double saleAmount;
-
-    @Column(name = "transferhistory_duration")
-    @Schema(name = "duration", example = "6", requiredMode = Schema.RequiredMode.REQUIRED)
-    private int loanDurationInMonths;
-
-    @Column(name = "transferhistory_duration")
-    @Schema(name = "duration", example = "PT7M38S", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String playerStatus;
-
-    @Column(name = "transferhistory_amount")
-    @Schema(name = "amount", example = "25", requiredMode = Schema.RequiredMode.REQUIRED)
-    private int playerMarketValue;
-
-    @Column(name = "transferhistory_amount")
-    @Schema(name = "amount", example = "Rotation", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String playerRole;
-
-    @Column(name = "transferhistory_amount")
-    @Schema(name = "amount", example = "3", requiredMode = Schema.RequiredMode.REQUIRED)
-    private int contractLength;
-
-    @Column(name = "transferhistory_duration")
-    @Schema(name = "duration", example = "PT7M38S", requiredMode = Schema.RequiredMode.REQUIRED)
-    private int preLoanPlayerOverrall;
-
-    @Column(name = "transferhistory_duration")
-    @Schema(name = "duration", example = "PT7M38S", requiredMode = Schema.RequiredMode.REQUIRED)
-    private int postLoanPlayerOverrall;
-
-    @Column(name = "transferhistory_duration")
-    @Schema(name = "duration", example = "23", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Column(name = "age")
+    @Schema(name = "age", example = "23")
     private int age;
 
-    @Column(name = "transferhistory_duration")
-    @Schema(name = "duration", example = "PT7M38S", requiredMode = Schema.RequiredMode.REQUIRED)
-    private double growthPercentage;
-
-    @Column(name = "transferhistory_duration")
-    @Schema(name = "duration", example = "PT7M38S", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Column(name = "season_year")
+    @Schema(name = "seasonYear", example = "2023", requiredMode = Schema.RequiredMode.REQUIRED)
     private int seasonYear;
 
-    @Column(name = "transferhistory_duration")
-    @Schema(name = "duration", example = "PT7M38S", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Column(name = "season_transfer_window")
+    @Schema(name = "seasonTransferWindow", example = "Winter", requiredMode = Schema.RequiredMode.REQUIRED)
     private String seasonTransferWindow;
 
-    @Column(name = "transferhistory_date")
-    @Schema(name = "date", example = "2024-06-15")
+    @Column(name = "date")
+    @Schema(name = "date", example = "2024-06-15", requiredMode = Schema.RequiredMode.REQUIRED)
     private LocalDate date;
 
-    @Column(name = "transferhistory_datetime")
-    @Schema(name = "entryCreated", example = "2024-06-15T21:37:11.676727")
-    private LocalDateTime entryCreated;
+    @Column(name = "entry_created_date_time")
+    @Schema(name = "entryCreatedDateTime", example = "2024-06-15T21:37:11.676727")
+    private LocalDateTime entryCreatedDateTime;
+
+    @Id
+    @Column(name = "negotiation_deal_details_id")
+    @Schema(name = "negotiationDealDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private UUID negotiationDealDetailsId;
+
+    @Id
+    @Column(name = "deal_financials_details_id")
+    @Schema(name = "dealFinancialsDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private UUID dealFinancialsDetailsId;
+
+    @Id
+    @Column(name = "growth_details_id")
+    @Schema(name = "growthDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private UUID growthDetailsId;
+
 }
