@@ -1,0 +1,25 @@
+plugins {
+    id 'multi-module-config'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+//    set('flywayCoreVersion', '10.14.0')
+    set('postgresqlVersion', '42.7.3')
+    set('junitBomVersion', '5.9.1')
+}
+
+dependencies {
+
+    // Database
+//    implementation "org.flywaydb:flyway-core:${flywayCoreVersion}"
+//    implementation "org.flywaydb:flyway-database-postgresql:${flywayCoreVersion}"
+    runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
+    implementation("org.springframework.boot:spring-boot-devtools")
+
+    testImplementation platform("org.junit:junit-bom:${junitBomVersion}")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+}
