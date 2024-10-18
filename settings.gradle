@@ -1,3 +1,4 @@
 rootProject.name = 'fccareermanager'
 
 include 'transfer-history'
+include 'tds-commons'

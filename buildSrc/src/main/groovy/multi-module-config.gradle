@@ -44,6 +44,10 @@ configurations.all {
 }
 
 dependencies {
+
+    // tds-commons
+//    implementation project(':tds-commons')
+
     implementation "org.springframework.boot:spring-boot-gradle-plugin"
     implementation "io.spring.dependency-management:io.spring.dependency-management.gradle.plugin:${springDependencyMgmtVersion}"
     implementation platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
