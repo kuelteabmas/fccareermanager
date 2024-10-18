@@ -1,22 +1,22 @@
 services:
 
-  postgres-TransferHistory:
-    container_name: postgres-TransferHistory1
+  postgres-transferhistory:
+    container_name: postgres-transferhistory
     image: postgres
     environment:
       POSTGRES_USER: tds
-      POSTGRES_PASSWORD: boilerplate
+      POSTGRES_PASSWORD: fccareermanager
       PGDATA: /data/postgres
     volumes:
       - postgres-transferhistory:/data/postgres
     ports:
-      - "5192:5432"
+      - "5892:5432"
     networks:
-      - boilerplate-postgresnetwork
+      - fccareermanager-postgresnetwork
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin-boilerplate
+    container_name: pgadmin-fccareermanager
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
@@ -25,15 +25,15 @@ services:
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:
-      - "5952:80"
+      - "5852:80"
     networks:
-      - boilerplate-postgresnetwork
+      - fccareermanager-postgresnetwork
     restart: unless-stopped
 
 networks:
-  boilerplate-postgresnetwork:
+  fccareermanager-postgresnetwork:
     driver: bridge
 
 volumes:
-  postgres-TransferHistory:
+  postgres-transferhistory:
   pgadmin:

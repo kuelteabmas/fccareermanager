@@ -5,9 +5,9 @@ spring:
   application:
     name: transferhistory
   datasource:
-    url: jdbc:postgresql://localhost:5192/TransferHistorydb
+    url: jdbc:postgresql://localhost:5892/transferhistorydb
     username: tds
-    password: boilerplate
+    password: fccareermanager
   jpa:
     properties:
       hibernate:
