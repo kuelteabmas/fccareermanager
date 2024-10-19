@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Constants {
 
+    APPEARANCES("Appearances"),
+    GOALS("Clean Sheets"),
+    CLEAN_SHEETS("Clean Sheets"),
+
     NEGOTIATION_DEAL_DETAIL_CREATED("Negotiation Deal Detail created {}"),
     NEGOTIATION_DEAL_DETAIL_FETCHED("Negotiation Deal Detail fetched {}"),
     NEGOTIATION_DEAL_DETAIL_UPDATED("Negotiation Deal Detail updated {}"),
