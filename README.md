@@ -1,4 +1,4 @@
-# fccareermanager 
+#  EA FC / FIFA Career Manager Repository Tracker
 
 > Spring Boot 3 Backend for fccareermanager project including multi module Gradle build tools
 
@@ -6,8 +6,6 @@
 > - `transfer-history` for anything Transfer and Loan Deal related
 
 ## Initial Set Up
-
-____
 
 ### Setting up pgAdmin and database
 
