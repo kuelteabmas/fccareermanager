@@ -13,6 +13,8 @@ public interface TransferHistoryService {
 
     List<TransferHistoryItemResponse> getAllTransferHistoryItems();
 
+    List<TransferHistoryItemResponse> getAllTransferHistoryItemsForPlayerId(UUID playerId);
+
     TransferHistoryItemResponse createTransferHistoryItem(TransferHistoryItemRequest request);
 
     TransferHistoryItemResponse updateTransferHistoryItem(TransferHistoryItemRequest request);
