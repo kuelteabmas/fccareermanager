@@ -35,4 +35,13 @@ public class TransferHistoryItemRequest {
 
     @Schema(name = "playerGrowthDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID playerGrowthDetailsId;
+
+    @Schema(name = "negotiationDealDetailRequest", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private NegotiationDealDetailRequest negotiationDealDetail;
+
+    @Schema(name = "dealFinancialsDetailRequest", example = "")
+    private DealFinancialsDetailRequest dealFinancialsDetail;
+
+    @Schema(name = "playerGrowthDetailRequest", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private PlayerGrowthDetailRequest playerGrowthDetail;
 }

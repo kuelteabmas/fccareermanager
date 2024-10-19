@@ -55,6 +55,10 @@ public class TransferHistoryItem {
     @Schema(name = "entryCreatedDateTime", example = "2024-06-15T21:37:11.676727")
     private LocalDateTime entryCreatedDateTime;
 
+    @Column(name = "entry_last_updated_date_time")
+    @Schema(name = "entryLastUpdatedDateTime", example = "2024-06-15T21:37:11.676727")
+    private LocalDateTime entryLastUpdatedDateTime;
+
     @Column(name = "negotiation_deal_details_id")
     @Schema(name = "negotiationDealDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID negotiationDealDetailsId;
