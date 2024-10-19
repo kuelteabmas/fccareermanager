@@ -28,6 +28,10 @@ public class NegotiationDealDetail {
      @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
      private UUID id;
 
+     @Column(name = "player_id")
+     @Schema(name = "player_id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+     private UUID playerId;
+
      @Column(name = "deal_type")
      @Schema(name = "dealType", example = "Loan", requiredMode = Schema.RequiredMode.REQUIRED)
      private String dealType;
@@ -53,10 +57,9 @@ public class NegotiationDealDetail {
      private LocalDate contractStartDate;
 
      @Column(name = "contract_end_date")
-     @Schema(name = "duration", example = "2024-06-15", requiredMode = Schema.RequiredMode.REQUIRED)
+     @Schema(name = "contractEndDate", example = "2024-12-15", requiredMode = Schema.RequiredMode.REQUIRED)
      private LocalDate contractEndDate;
 
-     @Id
      @Column(name = "player_swapped_id")
      @Schema(name = "playerSwappedId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
      private UUID playerSwappedId;
