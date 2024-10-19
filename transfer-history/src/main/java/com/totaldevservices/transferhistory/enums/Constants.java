@@ -12,6 +12,11 @@ public enum Constants {
     NEGOTIATION_DEAL_DETAIL_UPDATED("Negotiation Deal Detail updated {}"),
     NEGOTIATION_DEAL_DETAIL_DELETED("Negotiation Deal Detail deleted {}"),
 
+    DEAL_FINANCIALS_DETAIL_CREATED("Deal Financials Detail created {}"),
+    DEAL_FINANCIALS_DETAIL_FETCHED("Deal Financials Detail fetched {}"),
+    DEAL_FINANCIALS_DETAIL_UPDATED("Deal Financials Detail updated {}"),
+    DEAL_FINANCIALS_DETAIL_DELETED("Deal Financials Detail deleted {}"),
+
     TRANSFER_HISTORY_CREATED("Transfer History Item created {}"),
     TRANSFER_HISTORY_FETCHED("Transfer History Item fetched {}"),
     TRANSFER_HISTORY_UPDATED("Transfer History Item updated {}"),

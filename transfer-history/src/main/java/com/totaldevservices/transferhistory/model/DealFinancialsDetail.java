@@ -27,6 +27,10 @@ public class DealFinancialsDetail {
     @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID id;
 
+    @Column(name = "player_id")
+    @Schema(name = "player_id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+    private UUID playerId;
+
     @Column(name = "pre_deal_wage")
     @Schema(name = "preDealWage", example = "25.00", requiredMode = Schema.RequiredMode.REQUIRED)
     private double preDealWage;

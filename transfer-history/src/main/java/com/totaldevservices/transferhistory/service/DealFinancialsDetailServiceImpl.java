@@ -1,0 +1,68 @@
+package com.totaldevservices.transferhistory.service;
+
+import com.totaldevservices.transferhistory.dto.DealFinancialsDetailRequest;
+import com.totaldevservices.transferhistory.model.DealFinancialsDetail;
+import com.totaldevservices.transferhistory.repository.DealFinancialsDetailRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+@AllArgsConstructor
+public class DealFinancialsDetailServiceImpl implements DealFinancialsDetailService {
+
+    private final DealFinancialsDetailRepository dealFinancialsDetailRepository;
+
+    @Override
+    public DealFinancialsDetail getDealFinancialsDetailById(UUID id) {
+        Optional<DealFinancialsDetail> dealFinancialsDetailOptional =
+                Optional.of(dealFinancialsDetailRepository.findById(id)
+                        .orElseThrow());
+
+        return DealFinancialsDetail.builder()
+                .id(dealFinancialsDetailOptional.get().getId())
+                .playerId(dealFinancialsDetailOptional.get().getPlayerId())
+                .preDealWage(dealFinancialsDetailOptional.get().getPreDealWage())
+                .postDealWage(dealFinancialsDetailOptional.get().getPostDealWage())
+                .signingBonus(dealFinancialsDetailOptional.get().getSigningBonus())
+                .performanceBonusType(dealFinancialsDetailOptional.get().getPerformanceBonusType())
+                .performanceBonusCount(dealFinancialsDetailOptional.get().getPerformanceBonusCount())
+                .performanceBonusSum(dealFinancialsDetailOptional.get().getPerformanceBonusSum())
+                .transfeeFee(dealFinancialsDetailOptional.get().getTransfeeFee())
+                .sellonClauseAmount(dealFinancialsDetailOptional.get().getSellonClauseAmount())
+                .build();
+    }
+
+    @Override
+    public DealFinancialsDetail createDealFinancialsDetail(DealFinancialsDetailRequest request) {
+
+        DealFinancialsDetail dealFinancialsDetail = DealFinancialsDetail.builder()
+                .playerId(request.getPlayerId())
+                .preDealWage(request.getPreDealWage())
+                .postDealWage(request.getPostDealWage())
+                .signingBonus(request.getSigningBonus())
+                .performanceBonusType(request.getPerformanceBonusType())
+                .performanceBonusCount(request.getPerformanceBonusCount())
+                .performanceBonusSum(request.getPerformanceBonusSum())
+                .transfeeFee(request.getTransfeeFee())
+                .sellonClauseAmount(request.getSellonClauseAmount())
+                .build();
+
+        // todo: check if dealFinancialsDetail is valid
+
+        dealFinancialsDetailRepository.save(dealFinancialsDetail);
+
+        return dealFinancialsDetail;
+    }
+
+    @Override
+    public void deleteDealFinancialsDetail(UUID id) {
+        Optional<DealFinancialsDetail> dealFinancialsDetailOptional = dealFinancialsDetailRepository.findById(id);
+
+        // TODO: Throw Exception if ID doesn't exist in db
+
+        dealFinancialsDetailRepository.delete(dealFinancialsDetailOptional.get());
+    }
+}
