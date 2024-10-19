@@ -17,6 +17,11 @@ public enum Constants {
     DEAL_FINANCIALS_DETAIL_UPDATED("Deal Financials Detail updated {}"),
     DEAL_FINANCIALS_DETAIL_DELETED("Deal Financials Detail deleted {}"),
 
+    PLAYER_GROWTH_DETAIL_CREATED("Player Growth Detail created {}"),
+    PLAYER_GROWTH_DETAIL_FETCHED("Player Growth Detail fetched {}"),
+    PLAYER_GROWTH_DETAIL_UPDATED("Player Growth Detail updated {}"),
+    PLAYER_GROWTH_DETAIL_DELETED("Player Growth Detail deleted {}"),
+
     TRANSFER_HISTORY_CREATED("Transfer History Item created {}"),
     TRANSFER_HISTORY_FETCHED("Transfer History Item fetched {}"),
     TRANSFER_HISTORY_UPDATED("Transfer History Item updated {}"),

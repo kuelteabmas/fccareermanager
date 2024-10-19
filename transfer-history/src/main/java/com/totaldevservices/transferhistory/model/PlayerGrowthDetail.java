@@ -27,6 +27,10 @@ public class PlayerGrowthDetail {
     @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID id;
 
+    @Column(name = "player_id")
+    @Schema(name = "playerId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+    private UUID playerId;
+
     @Column(name = "pre_deal_player_status")
     @Schema(name = "preDealPlayerStatus", example = "Showing Great Potential", requiredMode = Schema.RequiredMode.REQUIRED)
     private String preDealPlayerStatus;
@@ -48,7 +52,7 @@ public class PlayerGrowthDetail {
     private double overallGrowthPercentage;
 
     @Column(name = "updated_market_value")
-    @Schema(name = "updatedMarketValue", example = "1,600,000.00", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(name = "updatedMarketValue", example = "1600000.00", requiredMode = Schema.RequiredMode.REQUIRED)
     private double updatedMarketValue;
 
 }

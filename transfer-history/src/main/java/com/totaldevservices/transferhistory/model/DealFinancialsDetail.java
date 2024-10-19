@@ -28,7 +28,7 @@ public class DealFinancialsDetail {
     private UUID id;
 
     @Column(name = "player_id")
-    @Schema(name = "player_id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+    @Schema(name = "playerId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
     private UUID playerId;
 
     @Column(name = "pre_deal_wage")
