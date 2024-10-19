@@ -1,7 +1,7 @@
 package com.totaldevservices.transferhistory.controller;
 
-import com.totaldevservices.transferhistory.dto.TransferHistoryRequest;
-import com.totaldevservices.transferhistory.dto.TransferHistoryResponse;
+import com.totaldevservices.transferhistory.dto.TransferHistoryItemRequest;
+import com.totaldevservices.transferhistory.dto.TransferHistoryItemResponse;
 import com.totaldevservices.transferhistory.model.TransferHistoryItem;
 import com.totaldevservices.transferhistory.service.TransferHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,11 +29,11 @@ import java.util.UUID;
 import static com.totaldevservices.transferhistory.enums.Constants.DELETE_CALL;
 import static com.totaldevservices.transferhistory.enums.Constants.GET_CALL;
 import static com.totaldevservices.transferhistory.enums.Constants.POST_CALL;
+import static com.totaldevservices.transferhistory.enums.Constants.PUT_CALL;
 import static com.totaldevservices.transferhistory.enums.Constants.TRANSFER_HISTORY_CREATED;
 import static com.totaldevservices.transferhistory.enums.Constants.TRANSFER_HISTORY_DELETED;
 import static com.totaldevservices.transferhistory.enums.Constants.TRANSFER_HISTORY_FETCHED;
 import static com.totaldevservices.transferhistory.enums.Constants.TRANSFER_HISTORY_UPDATED;
-import static com.totaldevservices.transferhistory.enums.Constants.PUT_CALL;
 
 @Slf4j
 @RestController
@@ -41,7 +41,7 @@ import static com.totaldevservices.transferhistory.enums.Constants.PUT_CALL;
 @AllArgsConstructor
 public class TransferHistoryController {
 
-    private TransferHistoryService TransferHistoryService;
+    private TransferHistoryService transferHistoryService;
 
     @Operation(summary = "Fetch Transfer History Item by its Id")
     @ApiResponses(value = {
@@ -57,11 +57,11 @@ public class TransferHistoryController {
                     content = @Content)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<TransferHistoryResponse> getTransferHistoryById(
+    public ResponseEntity<TransferHistoryItemResponse> getTransferHistoryItemById(
             @PathVariable("id") @Parameter(description = "id of Transfer History Item to be fetched") UUID id) {
         log.info(GET_CALL.getMessage());
 
-        TransferHistoryResponse response = TransferHistoryService.getTransferHistoryItemById(id);
+        TransferHistoryItemResponse response = transferHistoryService.getTransferHistoryItemById(id);
 
         log.info(TRANSFER_HISTORY_FETCHED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -79,10 +79,10 @@ public class TransferHistoryController {
                     content = @Content)
     })
     @GetMapping()
-    public ResponseEntity<List<TransferHistoryResponse>> getAllTransferHistoryItems() {
+    public ResponseEntity<List<TransferHistoryItemResponse>> getAllTransferHistoryItems() {
         log.info(GET_CALL.getMessage());
 
-        List<TransferHistoryResponse> responses = TransferHistoryService.getAllTransferHistoryItems();
+        List<TransferHistoryItemResponse> responses = transferHistoryService.getAllTransferHistoryItems();
 
         log.info(TRANSFER_HISTORY_FETCHED.getMessage(), responses);
         return new ResponseEntity<>(responses, HttpStatus.OK);
@@ -103,10 +103,10 @@ public class TransferHistoryController {
                     content = @Content)
     })
     @PostMapping()
-    public ResponseEntity<TransferHistoryResponse> createTransferHistoryItem(@RequestBody TransferHistoryRequest request) {
+    public ResponseEntity<TransferHistoryItemResponse> createTransferHistoryItem(@RequestBody TransferHistoryItemRequest request) {
         log.info(POST_CALL.getMessage());
 
-        TransferHistoryResponse response = TransferHistoryService.createTransferHistoryItem(request);
+        TransferHistoryItemResponse response = transferHistoryService.createTransferHistoryItem(request);
 
         log.info(TRANSFER_HISTORY_CREATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -126,10 +126,10 @@ public class TransferHistoryController {
                     content = @Content)
     })
     @PutMapping()
-    ResponseEntity<TransferHistoryResponse> updateTransferHistoryItem(@RequestBody TransferHistoryRequest request) {
+    ResponseEntity<TransferHistoryItemResponse> updateTransferHistoryItem(@RequestBody TransferHistoryItemRequest request) {
         log.info(PUT_CALL.getMessage());
 
-        TransferHistoryResponse response = TransferHistoryService.updateTransferHistoryItem(request);
+        TransferHistoryItemResponse response = transferHistoryService.updateTransferHistoryItem(request);
 
         log.info(TRANSFER_HISTORY_UPDATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -151,7 +151,7 @@ public class TransferHistoryController {
             @PathVariable @Parameter(description = "id of Transfer History Item to be deleted") UUID id) {
         log.info(DELETE_CALL.getMessage());
 
-        TransferHistoryService.deleteTransferHistoryItem(id);
+        transferHistoryService.deleteTransferHistoryItem(id);
 
         log.info(TRANSFER_HISTORY_DELETED.getMessage());
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

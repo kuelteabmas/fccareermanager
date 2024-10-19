@@ -32,8 +32,8 @@ public class TransferHistoryItem {
     private UUID id;
 
     @Column(name = "player_id")
-    @Schema(name = "player_id", example = "Dan Smith", requiredMode = Schema.RequiredMode.REQUIRED)
-    private String playerId;
+    @Schema(name = "player_id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+    private UUID playerId;
 
     @Column(name = "age")
     @Schema(name = "age", example = "23")
@@ -55,19 +55,16 @@ public class TransferHistoryItem {
     @Schema(name = "entryCreatedDateTime", example = "2024-06-15T21:37:11.676727")
     private LocalDateTime entryCreatedDateTime;
 
-    @Id
     @Column(name = "negotiation_deal_details_id")
     @Schema(name = "negotiationDealDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID negotiationDealDetailsId;
 
-    @Id
     @Column(name = "deal_financials_details_id")
     @Schema(name = "dealFinancialsDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID dealFinancialsDetailsId;
 
-    @Id
-    @Column(name = "growth_details_id")
-    @Schema(name = "growthDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private UUID growthDetailsId;
+    @Column(name = "player_growth_details_id")
+    @Schema(name = "playerGrowthDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private UUID playerGrowthDetailsId;
 
 }
