@@ -1,6 +1,8 @@
 package com.totaldevservices.transferhistory.controller;
 
 import com.totaldevservices.transferhistory.dto.DealFinancialsDetailRequest;
+import com.totaldevservices.transferhistory.dto.DealFinancialsDetailRequest;
+import com.totaldevservices.transferhistory.model.DealFinancialsDetail;
 import com.totaldevservices.transferhistory.model.DealFinancialsDetail;
 import com.totaldevservices.transferhistory.service.DealFinancialsDetailService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,18 +19,22 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+import static com.totaldevservices.transferhistory.enums.Constants.DEAL_FINANCIALS_DETAIL_UPDATED;
 import static com.totaldevservices.transferhistory.enums.Constants.DELETE_CALL;
 import static com.totaldevservices.transferhistory.enums.Constants.GET_CALL;
 import static com.totaldevservices.transferhistory.enums.Constants.DEAL_FINANCIALS_DETAIL_CREATED;
 import static com.totaldevservices.transferhistory.enums.Constants.DEAL_FINANCIALS_DETAIL_DELETED;
 import static com.totaldevservices.transferhistory.enums.Constants.DEAL_FINANCIALS_DETAIL_FETCHED;
+import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_UPDATED;
 import static com.totaldevservices.transferhistory.enums.Constants.POST_CALL;
+import static com.totaldevservices.transferhistory.enums.Constants.PUT_CALL;
 
 @Slf4j
 @RestController
@@ -85,6 +91,29 @@ public class DealFinancialsDetailController {
         log.info(DEAL_FINANCIALS_DETAIL_CREATED.getMessage(), response);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+    
+    @Operation(summary = "Update Deal Financials Detail by its id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Deal Financials Detail updated",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = DealFinancialsDetail.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Deal Financials Detail cannot be updated",
+                    content = @Content)
+    })
+    @PutMapping()
+    ResponseEntity<DealFinancialsDetail> updateDealFinancialsDetail(@RequestBody DealFinancialsDetailRequest request) {
+        log.info(PUT_CALL.getMessage());
+
+        DealFinancialsDetail response = dealFinancialsDetailService.updateDealFinancialsDetail(request);
+
+        log.info(DEAL_FINANCIALS_DETAIL_UPDATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 
     @Operation(summary = "Delete Deal Financials Detail by its id")

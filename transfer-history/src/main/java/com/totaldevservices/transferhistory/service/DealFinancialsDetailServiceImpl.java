@@ -2,6 +2,7 @@ package com.totaldevservices.transferhistory.service;
 
 import com.totaldevservices.transferhistory.dto.DealFinancialsDetailRequest;
 import com.totaldevservices.transferhistory.model.DealFinancialsDetail;
+import com.totaldevservices.transferhistory.model.DealFinancialsDetail;
 import com.totaldevservices.transferhistory.repository.DealFinancialsDetailRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,27 @@ public class DealFinancialsDetailServiceImpl implements DealFinancialsDetailServ
                 .build();
 
         // todo: check if dealFinancialsDetail is valid
+
+        dealFinancialsDetailRepository.save(dealFinancialsDetail);
+
+        return dealFinancialsDetail;
+    }
+
+    @Override
+    public DealFinancialsDetail updateDealFinancialsDetail(DealFinancialsDetailRequest request) {
+        Optional<DealFinancialsDetail> dealFinancialsDetailOptional = Optional.of(dealFinancialsDetailRepository.findById(request.getId()))
+                .orElseThrow();
+
+        DealFinancialsDetail dealFinancialsDetail = dealFinancialsDetailOptional.get();
+        dealFinancialsDetail.setPlayerId(request.getPlayerId());
+        dealFinancialsDetail.setPreDealWage(request.getPreDealWage());
+        dealFinancialsDetail.setPostDealWage(request.getPostDealWage());
+        dealFinancialsDetail.setSigningBonus(request.getSigningBonus());
+        dealFinancialsDetail.setPerformanceBonusType(request.getPerformanceBonusType());
+        dealFinancialsDetail.setPerformanceBonusCount(request.getPerformanceBonusCount());
+        dealFinancialsDetail.setPerformanceBonusSum(request.getPerformanceBonusSum());
+        dealFinancialsDetail.setTransfeeFee(request.getTransfeeFee());
+        dealFinancialsDetail.setSellonClauseAmount(request.getSellonClauseAmount());
 
         dealFinancialsDetailRepository.save(dealFinancialsDetail);
 

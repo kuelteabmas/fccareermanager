@@ -8,6 +8,9 @@ import java.util.UUID;
 @Data
 public class DealFinancialsDetailRequest {
 
+    @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private UUID id;
+
     @Schema(name = "playerId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID playerId;
 
