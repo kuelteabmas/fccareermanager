@@ -2,6 +2,7 @@ package com.totaldevservices.transferhistory.service;
 
 import com.totaldevservices.transferhistory.dto.PlayerGrowthDetailRequest;
 import com.totaldevservices.transferhistory.model.PlayerGrowthDetail;
+import com.totaldevservices.transferhistory.model.PlayerGrowthDetail;
 import com.totaldevservices.transferhistory.repository.PlayerGrowthDetailRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,25 @@ public class PlayerGrowthDetailServiceImpl implements PlayerGrowthDetailService 
                 .build();
 
         // todo: check if playerGrowthDetail is valid
+
+        playerGrowthDetailRepository.save(playerGrowthDetail);
+
+        return playerGrowthDetail;
+    }
+
+    @Override
+    public PlayerGrowthDetail updatePlayerGrowthDetail(PlayerGrowthDetailRequest request) {
+        Optional<PlayerGrowthDetail> playerGrowthDetailOptional = Optional.of(playerGrowthDetailRepository.findById(request.getId()))
+                .orElseThrow();
+
+        PlayerGrowthDetail playerGrowthDetail = playerGrowthDetailOptional.get();
+        playerGrowthDetail.setPlayerId(request.getPlayerId());
+        playerGrowthDetail.setPreDealPlayerStatus(request.getPreDealPlayerStatus());
+        playerGrowthDetail.setPostDealPlayerStatus(request.getPostDealPlayerStatus());
+        playerGrowthDetail.setPreDealPlayerOverrall(request.getPreDealPlayerOverrall());
+        playerGrowthDetail.setPostDealPlayerOverrall(request.getPostDealPlayerOverrall());
+        playerGrowthDetail.setOverallGrowthPercentage(request.getOverallGrowthPercentage());
+        playerGrowthDetail.setUpdatedMarketValue(request.getUpdatedMarketValue());
 
         playerGrowthDetailRepository.save(playerGrowthDetail);
 
