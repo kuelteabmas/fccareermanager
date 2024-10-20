@@ -58,6 +58,27 @@ public class NegotiationDealDetailServiceImpl implements NegotiationDealDetailSe
     }
 
     @Override
+    public NegotiationDealDetail updateNegotiationDealDetail(NegotiationDealDetailRequest request) {
+        Optional<NegotiationDealDetail> negotiationDealDetailOptional = Optional.of(negotiationDealDetailRepository.findById(request.getId()))
+                .orElseThrow();
+
+        NegotiationDealDetail negotiationDealDetail = negotiationDealDetailOptional.get();
+        negotiationDealDetail.setPlayerId(request.getPlayerId());
+        negotiationDealDetail.setDealType(request.getDealType());
+        negotiationDealDetail.setLoanType(request.getLoanType());
+        negotiationDealDetail.setParentTeam(request.getParentTeam());
+        negotiationDealDetail.setTempTeam(request.getTempTeam());
+        negotiationDealDetail.setLoanDurationInMonths(request.getLoanDurationInMonths());
+        negotiationDealDetail.setContractStartDate(request.getContractStartDate());
+        negotiationDealDetail.setContractEndDate(request.getContractEndDate());
+        negotiationDealDetail.setPlayerSwappedId(request.getPlayerSwappedId());
+
+        negotiationDealDetailRepository.save(negotiationDealDetail);
+
+        return negotiationDealDetail;
+    }
+
+    @Override
     public void deleteNegotiationDealDetail(UUID id) {
         Optional<NegotiationDealDetail> negotiationDealDetailOptional = negotiationDealDetailRepository.findById(id);
 

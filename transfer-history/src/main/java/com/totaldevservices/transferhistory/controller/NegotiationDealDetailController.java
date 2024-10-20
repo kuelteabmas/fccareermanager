@@ -17,18 +17,21 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-import static com.totaldevservices.transferhistory.enums.Constants.DELETE_CALL;
 import static com.totaldevservices.transferhistory.enums.Constants.GET_CALL;
-import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_CREATED;
-import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_DELETED;
-import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_FETCHED;
 import static com.totaldevservices.transferhistory.enums.Constants.POST_CALL;
+import static com.totaldevservices.transferhistory.enums.Constants.PUT_CALL;
+import static com.totaldevservices.transferhistory.enums.Constants.DELETE_CALL;
+import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_FETCHED;
+import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_CREATED;
+import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_UPDATED;
+import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_DELETED;
 
 @Slf4j
 @RestController
@@ -87,6 +90,29 @@ public class NegotiationDealDetailController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Update Negotiation Deal Detail by its id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Negotiation Deal Detail updated",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = NegotiationDealDetail.class))
+                    }),
+            @ApiResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Negotiation Deal Detail cannot be updated",
+                    content = @Content)
+    })
+    @PutMapping()
+    ResponseEntity<NegotiationDealDetail> updateNegotiationDealDetail(@RequestBody NegotiationDealDetailRequest request) {
+        log.info(PUT_CALL.getMessage());
+
+        NegotiationDealDetail response = negotiationDealDetailService.updateNegotiationDealDetail(request);
+
+        log.info(NEGOTIATION_DEAL_DETAIL_UPDATED.getMessage(), response);
+        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+    }
+    
     @Operation(summary = "Delete Negotiation Deal Detail by its id")
     @ApiResponses(value = {
             @ApiResponse(

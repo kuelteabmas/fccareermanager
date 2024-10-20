@@ -115,14 +115,14 @@ public class TransferHistoryController {
     @Operation(summary = "Update Transfer History Item by its id")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "200", description = "Transfer History Item fetched",
+                    responseCode = "200", description = "Transfer History Item updated",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = TransferHistoryItem.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "Transfer History Item cannot be created",
+            @ApiResponse(responseCode = "404", description = "Transfer History Item cannot be updated",
                     content = @Content)
     })
     @PutMapping()

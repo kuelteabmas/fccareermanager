@@ -10,5 +10,7 @@ public interface NegotiationDealDetailService {
 
     NegotiationDealDetail createNegotiationDealDetail(NegotiationDealDetailRequest request);
 
+    NegotiationDealDetail updateNegotiationDealDetail(NegotiationDealDetailRequest request);
+
     void deleteNegotiationDealDetail(UUID id);
 }
