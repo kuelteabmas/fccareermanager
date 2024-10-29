@@ -1,14 +1,22 @@
 package com.totaldevservices.transferhistory.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
@@ -16,18 +24,21 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"negotiationDealDetail", "dealFinancialsDetail", "playerGrowthDetail"}) // Avoids cyclic references in toString()
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "transfer_history")
-public class TransferHistoryItem {
+@Table(name = "transferhistory")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // serialize the entire object graph by properly configuring JSON annotations - avoids infinite cyclic loop and StackOverflowError
+public class TransferHistory {
 
     // TODO: Add constraints in model and in service impl
 
     @Id
     @UuidGenerator
-    @Column(name = "transferhistory_id")
     @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID id;
 
@@ -59,16 +70,19 @@ public class TransferHistoryItem {
     @Schema(name = "entryLastUpdatedDateTime", example = "2024-06-15T21:37:11.676727")
     private LocalDateTime entryLastUpdatedDateTime;
 
-    @Column(name = "negotiation_deal_details_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "negotiation_deal_detail_id", referencedColumnName = "id")
     @Schema(name = "negotiationDealDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private UUID negotiationDealDetailsId;
+    private NegotiationDealDetail negotiationDealDetail;
 
-    @Column(name = "deal_financials_details_id")
-    @Schema(name = "dealFinancialsDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private UUID dealFinancialsDetailsId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "deal_financials_detail_id", referencedColumnName = "id")
+    @Schema(name = "negotiationDealDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private DealFinancialsDetail dealFinancialsDetail;
 
-    @Column(name = "player_growth_details_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "player_growth_detail_id", referencedColumnName = "id")
     @Schema(name = "playerGrowthDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private UUID playerGrowthDetailsId;
+    private PlayerGrowthDetail playerGrowthDetail;
 
 }

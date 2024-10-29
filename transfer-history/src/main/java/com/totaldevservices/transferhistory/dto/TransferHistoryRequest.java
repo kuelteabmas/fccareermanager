@@ -1,13 +1,26 @@
 package com.totaldevservices.transferhistory.dto;
 
+import com.totaldevservices.transferhistory.model.DealFinancialsDetail;
+import com.totaldevservices.transferhistory.model.NegotiationDealDetail;
+import com.totaldevservices.transferhistory.model.PlayerGrowthDetail;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Data
-public class TransferHistoryItemRequest {
+@Getter
+@Setter
+@ToString(exclude = {"negotiationDealDetail", "dealFinancialsDetail", "playerGrowthDetail"}) // Avoids cyclic references in toString()
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+public class TransferHistoryRequest {
 
     @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     UUID id;
@@ -27,21 +40,12 @@ public class TransferHistoryItemRequest {
     @Schema(name = "date", example = "2024-15-06")
     private LocalDate date;
 
-    @Schema(name = "negotiationDealDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private UUID negotiationDealDetailsId;
-
-    @Schema(name = "dealFinancialsDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private UUID dealFinancialsDetailsId;
-
-    @Schema(name = "playerGrowthDetailsId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private UUID playerGrowthDetailsId;
-
     @Schema(name = "negotiationDealDetailRequest", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private NegotiationDealDetailRequest negotiationDealDetail;
+    private NegotiationDealDetail negotiationDealDetail;
 
     @Schema(name = "dealFinancialsDetailRequest", example = "")
-    private DealFinancialsDetailRequest dealFinancialsDetail;
+    private DealFinancialsDetail dealFinancialsDetail;
 
     @Schema(name = "playerGrowthDetailRequest", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
-    private PlayerGrowthDetailRequest playerGrowthDetail;
+    private PlayerGrowthDetail playerGrowthDetail;
 }

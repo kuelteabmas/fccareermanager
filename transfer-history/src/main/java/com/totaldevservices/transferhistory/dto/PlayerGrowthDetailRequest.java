@@ -1,15 +1,26 @@
 package com.totaldevservices.transferhistory.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
 public class PlayerGrowthDetailRequest {
 
     @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID id;
+
+    @Schema(name = "transferHistoryId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private UUID transferHistoryId;
 
     @Schema(name = "playerId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
     private UUID playerId;

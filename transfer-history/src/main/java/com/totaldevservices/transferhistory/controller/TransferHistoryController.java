@@ -1,8 +1,8 @@
 package com.totaldevservices.transferhistory.controller;
 
-import com.totaldevservices.transferhistory.dto.TransferHistoryItemRequest;
-import com.totaldevservices.transferhistory.dto.TransferHistoryItemResponse;
-import com.totaldevservices.transferhistory.model.TransferHistoryItem;
+import com.totaldevservices.transferhistory.dto.TransferHistoryRequest;
+import com.totaldevservices.transferhistory.dto.TransferHistoryResponse;
+import com.totaldevservices.transferhistory.model.TransferHistory;
 import com.totaldevservices.transferhistory.service.TransferHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -49,7 +49,7 @@ public class TransferHistoryController {
                     responseCode = "200", description = "Transfer History Item fetched",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = TransferHistoryItem.class))
+                                    schema = @Schema(implementation = TransferHistory.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Invalid id supplied",
                     content = @Content),
@@ -57,11 +57,11 @@ public class TransferHistoryController {
                     content = @Content)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<TransferHistoryItemResponse> getTransferHistoryItemById(
+    public ResponseEntity<TransferHistoryResponse> getTransferHistoryItemById(
             @PathVariable("id") @Parameter(description = "id of Transfer History Item to be fetched") UUID id) {
         log.info(GET_CALL.getMessage());
 
-        TransferHistoryItemResponse response = transferHistoryService.getTransferHistoryItemById(id);
+        TransferHistoryResponse response = transferHistoryService.getTransferHistoryById(id);
 
         log.info(TRANSFER_HISTORY_FETCHED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -73,16 +73,16 @@ public class TransferHistoryController {
                     responseCode = "200", description = "All Transfer History Items fetched",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = TransferHistoryItem.class))
+                                    schema = @Schema(implementation = TransferHistory.class))
                     }),
             @ApiResponse(responseCode = "404", description = "Transfer History Items not found",
                     content = @Content)
     })
     @GetMapping()
-    public ResponseEntity<List<TransferHistoryItemResponse>> getAllTransferHistoryItems() {
+    public ResponseEntity<List<TransferHistoryResponse>> getAllTransferHistoryItems() {
         log.info(GET_CALL.getMessage());
 
-        List<TransferHistoryItemResponse> responses = transferHistoryService.getAllTransferHistoryItems();
+        List<TransferHistoryResponse> responses = transferHistoryService.getAllTransferHistories();
 
         log.info(TRANSFER_HISTORY_FETCHED.getMessage(), responses);
         return new ResponseEntity<>(responses, HttpStatus.OK);
@@ -94,7 +94,7 @@ public class TransferHistoryController {
                     responseCode = "201", description = "Transfer History Item created",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = TransferHistoryItem.class))
+                                    schema = @Schema(implementation = TransferHistory.class))
 
     }),
             @ApiResponse(responseCode = "400", description = "Bad Request",
@@ -103,10 +103,10 @@ public class TransferHistoryController {
                     content = @Content)
     })
     @PostMapping()
-    public ResponseEntity<TransferHistoryItemResponse> createTransferHistoryItem(@RequestBody TransferHistoryItemRequest request) {
+    public ResponseEntity<TransferHistoryResponse> createTransferHistoryItem(@RequestBody TransferHistoryRequest request) {
         log.info(POST_CALL.getMessage());
 
-        TransferHistoryItemResponse response = transferHistoryService.createTransferHistoryItem(request);
+        TransferHistoryResponse response = transferHistoryService.createTransferHistory(request);
 
         log.info(TRANSFER_HISTORY_CREATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -118,7 +118,7 @@ public class TransferHistoryController {
                     responseCode = "200", description = "Transfer History Item updated",
                     content = {
                             @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = TransferHistoryItem.class))
+                                    schema = @Schema(implementation = TransferHistory.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content),
@@ -126,10 +126,10 @@ public class TransferHistoryController {
                     content = @Content)
     })
     @PutMapping()
-    ResponseEntity<TransferHistoryItemResponse> updateTransferHistoryItem(@RequestBody TransferHistoryItemRequest request) {
+    ResponseEntity<TransferHistoryResponse> updateTransferHistoryItem(@RequestBody TransferHistoryRequest request) {
         log.info(PUT_CALL.getMessage());
 
-        TransferHistoryItemResponse response = transferHistoryService.updateTransferHistoryItem(request);
+        TransferHistoryResponse response = transferHistoryService.updateTransferHistory(request);
 
         log.info(TRANSFER_HISTORY_UPDATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -141,7 +141,7 @@ public class TransferHistoryController {
                     responseCode = "202", description = "Transfer History Item deleted",
                     content = {
                             @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = TransferHistoryItem.class))
+                            schema = @Schema(implementation = TransferHistory.class))
                     }),
             @ApiResponse(responseCode = "404", description = "Transfer History Item not found; Cannot be deleted",
                     content = @Content)
@@ -151,7 +151,7 @@ public class TransferHistoryController {
             @PathVariable @Parameter(description = "id of Transfer History Item to be deleted") UUID id) {
         log.info(DELETE_CALL.getMessage());
 
-        transferHistoryService.deleteTransferHistoryItem(id);
+        transferHistoryService.deleteTransferHistory(id);
 
         log.info(TRANSFER_HISTORY_DELETED.getMessage());
         return new ResponseEntity<>(HttpStatus.ACCEPTED);

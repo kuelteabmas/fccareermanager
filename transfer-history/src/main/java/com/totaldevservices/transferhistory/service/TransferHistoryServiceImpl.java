@@ -1,16 +1,17 @@
 package com.totaldevservices.transferhistory.service;
 
-import com.totaldevservices.transferhistory.dto.TransferHistoryItemRequest;
-import com.totaldevservices.transferhistory.dto.TransferHistoryItemResponse;
+import com.totaldevservices.transferhistory.dto.TransferHistoryRequest;
+import com.totaldevservices.transferhistory.dto.TransferHistoryResponse;
 import com.totaldevservices.transferhistory.mapper.TransferHistoryMapper;
 import com.totaldevservices.transferhistory.model.DealFinancialsDetail;
 import com.totaldevservices.transferhistory.model.NegotiationDealDetail;
 import com.totaldevservices.transferhistory.model.PlayerGrowthDetail;
-import com.totaldevservices.transferhistory.model.TransferHistoryItem;
+import com.totaldevservices.transferhistory.model.TransferHistory;
 import com.totaldevservices.transferhistory.repository.DealFinancialsDetailRepository;
 import com.totaldevservices.transferhistory.repository.NegotiationDealDetailRepository;
 import com.totaldevservices.transferhistory.repository.PlayerGrowthDetailRepository;
 import com.totaldevservices.transferhistory.repository.TransferHistoryRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,41 +37,16 @@ public class TransferHistoryServiceImpl implements TransferHistoryService {
     private TransferHistoryMapper transferHistoryMapper;
 
     @Override
-    public TransferHistoryItemResponse getTransferHistoryItemById(UUID transferHistoryItemId) {
-        Optional<TransferHistoryItem> transferHistoryItemOptional =
-                Optional.of(transferHistoryRepository.findById(transferHistoryItemId)
+    public TransferHistoryResponse getTransferHistoryById(UUID transferHistoryId) {
+        Optional<TransferHistory> transferHistoryItemOptional =
+                Optional.of(transferHistoryRepository.findById(transferHistoryId)
                 .orElseThrow());
 
-        TransferHistoryItem transferHistoryItem = transferHistoryItemOptional.get();
-
-        Optional<NegotiationDealDetail> negotiationDealDetailOptional =
-                Optional.of(negotiationDealDetailRepository.findById(transferHistoryItem.getNegotiationDealDetailsId())
-                        .orElseThrow());
-
-        Optional<DealFinancialsDetail> dealFinancialsDetailOptional =
-                Optional.of(dealFinancialsDetailRepository.findById(transferHistoryItem.getDealFinancialsDetailsId())
-                        .orElseThrow());
-
-        Optional<PlayerGrowthDetail> playerGrowthDetailOptional =
-                Optional.of(playerGrowthDetailRepository.findById(transferHistoryItem.getPlayerGrowthDetailsId())
-                        .orElseThrow());
-
-        return TransferHistoryItemResponse.builder()
-                .id(transferHistoryItemId)
-                .playerId(transferHistoryItem.getPlayerId())
-                .age(transferHistoryItem.getAge())
-                .seasonYear(transferHistoryItem.getSeasonYear())
-                .seasonTransferWindow(transferHistoryItem.getSeasonTransferWindow())
-                .date(transferHistoryItem.getDate())
-                .entryCreatedDateTime(transferHistoryItem.getEntryCreatedDateTime())
-                .negotiationDealDetail(negotiationDealDetailOptional.get())
-                .dealFinancialsDetail(dealFinancialsDetailOptional.get())
-                .playerGrowthDetail(playerGrowthDetailOptional.get())
-                .build();
+        return transferHistoryMapper.map(transferHistoryItemOptional.get());
     }
 
     @Override
-    public List<TransferHistoryItemResponse> getAllTransferHistoryItems() {
+    public List<TransferHistoryResponse> getAllTransferHistories() {
 
         /** Rework idea for performanace
          * findAll for negotiationDealDetailRepository, dealFinancialsDetailRepository and playerGrowthDetailRepository
@@ -81,105 +57,49 @@ public class TransferHistoryServiceImpl implements TransferHistoryService {
         // findAll by playerId
         return transferHistoryRepository.findAll()
                 .stream()
-                .map(
-                        transferHistoryItem -> transferHistoryMapper.map(transferHistoryItem,
-                                negotiationDealDetailRepository.findById(transferHistoryItem.getNegotiationDealDetailsId()).get(),
-                                dealFinancialsDetailRepository.findById(transferHistoryItem.getDealFinancialsDetailsId()).get(),
-                                playerGrowthDetailRepository.findById(transferHistoryItem.getPlayerGrowthDetailsId()).get()
-                        )
-                )
+                .map(transferHistoryItem -> transferHistoryMapper.map(transferHistoryItem))
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
-    public TransferHistoryItemResponse createTransferHistoryItem(TransferHistoryItemRequest request) {
+    public TransferHistoryResponse createTransferHistory(TransferHistoryRequest request) {
 
-        UUID playerId = request.getPlayerId();
+        // TODO: Check if the playerId exists before continuing once player db work is complete
 
-        // TODO: Check if the playerId exists before continuing
+        NegotiationDealDetail negotiationDealDetail = request.getNegotiationDealDetail();
+        DealFinancialsDetail dealFinancialsDetail = request.getDealFinancialsDetail();
+        PlayerGrowthDetail playerGrowthDetail = request.getPlayerGrowthDetail();
 
-        NegotiationDealDetail negotiationDealDetail = negotiationDealDetailRepository.findById(request.getNegotiationDealDetail().getId()).get();
-        DealFinancialsDetail dealFinancialsDetail = dealFinancialsDetailRepository.findById(request.getDealFinancialsDetail().getId()).get();
-        PlayerGrowthDetail playerGrowthDetail = playerGrowthDetailRepository.findById(request.getPlayerGrowthDetail().getId()).get();
-        // TODO: Check that playerId matches in all related tables (negotiationDealDetail, dealFinancialsDetail, playerGrowthDetail)
-//        UUID playerIdFromNegotiationDealDetail = negotiationDealDetail.getPlayerId();
-//        UUID playerIdFromDealFinancialsDetail = dealFinancialsDetail.getPlayerId();
-//        UUID playerIdFromPlayerGrowthDetail = playerGrowthDetail.getPlayerId();
-//
-//        if (playerId != playerIdFromNegotiationDealDetail || playerId != playerIdFromDealFinancialsDetail || playerId != playerIdFromPlayerGrowthDetail) {
-//            // throw new Exception();
-//        }
-
-        TransferHistoryItem transferHistoryItem = TransferHistoryItem.builder()
+        TransferHistory transferHistory = TransferHistory.builder()
                 .playerId(request.getPlayerId())
                 .age(request.getAge())
                 .seasonYear(request.getSeasonYear())
                 .seasonTransferWindow(request.getSeasonTransferWindow())
                 .date(request.getDate())
                 .entryCreatedDateTime(LocalDateTime.now())
-                .negotiationDealDetailsId(request.getNegotiationDealDetail().getId())
-                .dealFinancialsDetailsId(request.getDealFinancialsDetail().getId())
-                .playerGrowthDetailsId(request.getPlayerGrowthDetail().getId())
+                .negotiationDealDetail(negotiationDealDetail)
+                .dealFinancialsDetail(dealFinancialsDetail)
+                .playerGrowthDetail(playerGrowthDetail)
                 .build();
 
-        // todo: check if TransferHistoryitem is valid
+        negotiationDealDetail.setTransferHistory(transferHistory);
+        dealFinancialsDetail.setTransferHistory(transferHistory);
+        playerGrowthDetail.setTransferHistory(transferHistory);
 
-        transferHistoryRepository.save(transferHistoryItem);
+        transferHistoryRepository.save(transferHistory);
 
-        return transferHistoryMapper.map(transferHistoryItem, negotiationDealDetail, dealFinancialsDetail, playerGrowthDetail);
+        return transferHistoryMapper.map(transferHistory);
     }
 
     @Override
-    public TransferHistoryItemResponse updateTransferHistoryItem(TransferHistoryItemRequest request) {
-
-        Optional<TransferHistoryItem> transferHistoryItemOptional = transferHistoryRepository.findById(request.getId());
-
-        // TODO: Throw Exception if ID doesn't exist in db
-
-        UUID playerId = request.getPlayerId();
-
-        // TODO: Check if the playerId exists before continuing
-
-//        NegotiationDealDetail negotiationDealDetail = negotiationDealDetailRepository.findById(request.getNegotiationDealDetailRequest().getId()).get();
-//        DealFinancialsDetail dealFinancialsDetail = dealFinancialsDetailRepository.findById(request.getDealFinancialsDetailRequest().getId()).get();
-//        PlayerGrowthDetail playerGrowthDetail = playerGrowthDetailRepository.findById(request.getPlayerGrowthDetailRequest().getId()).get();
-
-        // TODO: Check that playerId matches in all related tables (negotiationDealDetail, dealFinancialsDetail, playerGrowthDetail)
-//        UUID playerIdFromNegotiationDealDetail = negotiationDealDetail.getPlayerId();
-//        UUID playerIdFromDealFinancialsDetail = dealFinancialsDetail.getPlayerId();
-//        UUID playerIdFromPlayerGrowthDetail = playerGrowthDetail.getPlayerId();
-//
-//        if (playerId != playerIdFromNegotiationDealDetail || playerId != playerIdFromDealFinancialsDetail || playerId != playerIdFromPlayerGrowthDetail) {
-//            // throw new Exception();
-//        }
-
-        // TODO: Maybe: Check if request and existing db record are different prior to making update call
-        NegotiationDealDetail negotiationDealDetail = negotiationDealDetailService.updateNegotiationDealDetail(request.getNegotiationDealDetail());
-        DealFinancialsDetail dealFinancialsDetail = dealFinancialsDetailService.updateDealFinancialsDetail(request.getDealFinancialsDetail());
-        PlayerGrowthDetail playerGrowthDetail = playerGrowthDetailService.updatePlayerGrowthDetail(request.getPlayerGrowthDetail());
-
-        TransferHistoryItem transferHistoryItem = transferHistoryItemOptional.get();
-        transferHistoryItem.setId(transferHistoryItem.getId());
-        transferHistoryItem.setPlayerId(request.getPlayerId());
-        transferHistoryItem.setAge(request.getAge());
-        transferHistoryItem.setSeasonYear(request.getSeasonYear());
-        transferHistoryItem.setSeasonTransferWindow(request.getSeasonTransferWindow());
-        transferHistoryItem.setDate(request.getDate());
-        transferHistoryItem.setEntryLastUpdatedDateTime(LocalDateTime.now());
-        transferHistoryItem.setNegotiationDealDetailsId(request.getNegotiationDealDetail().getId());
-        transferHistoryItem.setDealFinancialsDetailsId(request.getDealFinancialsDetail().getId());
-        transferHistoryItem.setPlayerGrowthDetailsId(request.getPlayerGrowthDetail().getId());
-
-        // todo: check if transferHistoryItem is valid
-
-        transferHistoryRepository.save(transferHistoryItem);
-
-        return transferHistoryMapper.map(transferHistoryItem, negotiationDealDetail, dealFinancialsDetail, playerGrowthDetail);
+    public TransferHistoryResponse updateTransferHistory(TransferHistoryRequest request) {
+        return null;
     }
 
     @Override
-    public void deleteTransferHistoryItem(UUID id) {
-        Optional<TransferHistoryItem> transferHistoryItemOptional = transferHistoryRepository.findById(id);
+    public void deleteTransferHistory(UUID id) {
+        Optional<TransferHistory> transferHistoryItemOptional = transferHistoryRepository.findById(id);
 
         // TODO: Throw Exception if ID doesn't exist in db
 

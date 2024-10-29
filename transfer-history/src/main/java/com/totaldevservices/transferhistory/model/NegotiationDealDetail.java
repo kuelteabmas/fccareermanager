@@ -1,32 +1,46 @@
 package com.totaldevservices.transferhistory.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"transferHistory"}) // Avoids cyclic references in toString()
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Table(name = "negotiation_deal_details")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // serialize the entire object graph by properly configuring JSON annotations - avoids infinite cyclic loop and StackOverflowError
 public class NegotiationDealDetail {
 
      @Id
      @UuidGenerator
-     @Column(name = "negotiation_deal_details_id")
      @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
      private UUID id;
+
+     @OneToOne
+      @JoinColumn(name = "transferhistory_id", referencedColumnName = "id", nullable = false)
+     private TransferHistory transferHistory;
 
      @Column(name = "player_id")
      @Schema(name = "playerId", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)

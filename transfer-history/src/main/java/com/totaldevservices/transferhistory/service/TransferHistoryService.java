@@ -1,21 +1,21 @@
 package com.totaldevservices.transferhistory.service;
 
 
-import com.totaldevservices.transferhistory.dto.TransferHistoryItemRequest;
-import com.totaldevservices.transferhistory.dto.TransferHistoryItemResponse;
+import com.totaldevservices.transferhistory.dto.TransferHistoryRequest;
+import com.totaldevservices.transferhistory.dto.TransferHistoryResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface TransferHistoryService {
 
-    TransferHistoryItemResponse getTransferHistoryItemById(UUID id);
+    TransferHistoryResponse getTransferHistoryById(UUID id);
 
-    List<TransferHistoryItemResponse> getAllTransferHistoryItems();
+    List<TransferHistoryResponse> getAllTransferHistories();
 
-    TransferHistoryItemResponse createTransferHistoryItem(TransferHistoryItemRequest request);
+    TransferHistoryResponse createTransferHistory(TransferHistoryRequest request);
 
-    TransferHistoryItemResponse updateTransferHistoryItem(TransferHistoryItemRequest request);
+    TransferHistoryResponse updateTransferHistory(TransferHistoryRequest request);
 
-    void deleteTransferHistoryItem(UUID id);
+    void deleteTransferHistory(UUID id);
 }
