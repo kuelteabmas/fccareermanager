@@ -11,6 +11,7 @@ import com.totaldevservices.transferhistory.repository.DealFinancialsDetailRepos
 import com.totaldevservices.transferhistory.repository.NegotiationDealDetailRepository;
 import com.totaldevservices.transferhistory.repository.PlayerGrowthDetailRepository;
 import com.totaldevservices.transferhistory.repository.TransferHistoryRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -92,9 +93,50 @@ public class TransferHistoryServiceImpl implements TransferHistoryService {
         return transferHistoryMapper.map(transferHistory);
     }
 
+    @Transactional
     @Override
     public TransferHistoryResponse updateTransferHistory(TransferHistoryRequest request) {
-        return null;
+
+        TransferHistory transferHistory = transferHistoryRepository.findById(request.getId())
+                .orElseThrow(() -> new EntityNotFoundException("TransferHistory not found with id: " + request.getId()));
+
+
+        // TODO: Check that trasnferhistoryId matches in all related tables (negotiationDealDetail, dealFinancialsDetail, playerGrowthDetail)
+//            if ((transferHistory.getId() != negotiationDealDetail.getTransferHistory().getId()) ||
+//                    (transferHistory.getId() != dealFinancialsDetail.getTransferHistory().getId()) ||
+//                    (transferHistory.getId() != playerGrowthDetail.getTransferHistory().getId())) {
+//                  throw new Exception();
+//            }
+
+        // TODO: Check if request and existing db record are different prior to making update call
+
+        // TODO: Check if request body is valid
+
+        NegotiationDealDetail negotiationDealDetail = request.getNegotiationDealDetail();
+        DealFinancialsDetail dealFinancialsDetail = request.getDealFinancialsDetail();
+        PlayerGrowthDetail playerGrowthDetail = request.getPlayerGrowthDetail();
+
+        transferHistory.setId(transferHistory.getId());
+        transferHistory.setPlayerId(request.getPlayerId());
+        transferHistory.setAge(request.getAge());
+        transferHistory.setSeasonYear(request.getSeasonYear());
+        transferHistory.setSeasonTransferWindow(request.getSeasonTransferWindow());
+        transferHistory.setDate(request.getDate());
+        transferHistory.setEntryLastUpdatedDateTime(LocalDateTime.now());
+
+        negotiationDealDetail.setTransferHistory(transferHistory);
+        dealFinancialsDetail.setTransferHistory(transferHistory);
+        playerGrowthDetail.setTransferHistory(transferHistory);
+
+        transferHistory.setNegotiationDealDetail(negotiationDealDetail);
+        transferHistory.setDealFinancialsDetail(dealFinancialsDetail);
+        transferHistory.setPlayerGrowthDetail(playerGrowthDetail);
+
+        // todo: check if transferHistoryItem is valid
+
+        transferHistoryRepository.save(transferHistory);
+
+        return transferHistoryMapper.map(transferHistory);
     }
 
     @Override
