@@ -46,8 +46,8 @@ public class DealFinancialsDetailRequest {
     @Schema(name = "performanceBonusSum", example = "25.00")
     private double performanceBonusSum;
 
-    @Schema(name = "transfeeFee", example = "25.00")
-    private double transfeeFee;
+    @Schema(name = "transferFee", example = "25.00")
+    private double transferFee;
 
     @Schema(name = "sellonClauseAmount", example = "50.00")
     private double sellonClauseAmount;

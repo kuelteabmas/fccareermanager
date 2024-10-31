@@ -57,7 +57,7 @@ public class TransferHistoryMapper {
                 .performanceBonusType(dealFinancialsDetail.getPerformanceBonusType())
                 .performanceBonusCount(dealFinancialsDetail.getPerformanceBonusCount())
                 .performanceBonusSum(dealFinancialsDetail.getPerformanceBonusSum())
-                .transfeeFee(dealFinancialsDetail.getTransfeeFee())
+                .transferFee(dealFinancialsDetail.getTransferFee())
                 .sellonClauseAmount(dealFinancialsDetail.getSellonClauseAmount())
                 .build();
     }

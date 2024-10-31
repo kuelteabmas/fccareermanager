@@ -31,7 +31,7 @@ public class DealFinancialsDetailServiceImpl implements DealFinancialsDetailServ
                 .performanceBonusType(dealFinancialsDetailOptional.get().getPerformanceBonusType())
                 .performanceBonusCount(dealFinancialsDetailOptional.get().getPerformanceBonusCount())
                 .performanceBonusSum(dealFinancialsDetailOptional.get().getPerformanceBonusSum())
-                .transfeeFee(dealFinancialsDetailOptional.get().getTransfeeFee())
+                .transferFee(dealFinancialsDetailOptional.get().getTransferFee())
                 .sellonClauseAmount(dealFinancialsDetailOptional.get().getSellonClauseAmount())
                 .build();
     }
@@ -47,7 +47,7 @@ public class DealFinancialsDetailServiceImpl implements DealFinancialsDetailServ
                 .performanceBonusType(request.getPerformanceBonusType())
                 .performanceBonusCount(request.getPerformanceBonusCount())
                 .performanceBonusSum(request.getPerformanceBonusSum())
-                .transfeeFee(request.getTransfeeFee())
+                .transferFee(request.getTransferFee())
                 .sellonClauseAmount(request.getSellonClauseAmount())
                 .build();
 
@@ -71,7 +71,7 @@ public class DealFinancialsDetailServiceImpl implements DealFinancialsDetailServ
         dealFinancialsDetail.setPerformanceBonusType(request.getPerformanceBonusType());
         dealFinancialsDetail.setPerformanceBonusCount(request.getPerformanceBonusCount());
         dealFinancialsDetail.setPerformanceBonusSum(request.getPerformanceBonusSum());
-        dealFinancialsDetail.setTransfeeFee(request.getTransfeeFee());
+        dealFinancialsDetail.setTransferFee(request.getTransferFee());
         dealFinancialsDetail.setSellonClauseAmount(request.getSellonClauseAmount());
 
         dealFinancialsDetailRepository.save(dealFinancialsDetail);

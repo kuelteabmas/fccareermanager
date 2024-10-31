@@ -73,9 +73,9 @@ public class DealFinancialsDetail {
     @Schema(name = "performanceBonusSum", example = "25.00")
     private double performanceBonusSum;
 
-    @Column(name = "transfee_fee")
-    @Schema(name = "transfeeFee", example = "25.00")
-    private double transfeeFee;
+    @Column(name = "transfer_fee")
+    @Schema(name = "transferFee", example = "25.00")
+    private double transferFee;
 
     @Column(name = "sellon_clause_amount")
     @Schema(name = "sellonClauseAmount", example = "50.00")
