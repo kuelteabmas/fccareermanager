@@ -3,7 +3,7 @@ package com.totaldevservices.transferhistory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import static com.totaldevservices.TDSCommons.createDbIfNotExists;
+import static com.totaldevservices.tdscommons.TDSCommons.createDbIfNotExists;
 
 @SpringBootApplication
 public class TransferHistoryApplication {

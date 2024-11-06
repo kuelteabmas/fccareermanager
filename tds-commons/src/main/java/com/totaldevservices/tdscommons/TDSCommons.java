@@ -1,4 +1,4 @@
-package com.totaldevservices;
+package com.totaldevservices.tdscommons;
 
 import lombok.extern.slf4j.Slf4j;
 

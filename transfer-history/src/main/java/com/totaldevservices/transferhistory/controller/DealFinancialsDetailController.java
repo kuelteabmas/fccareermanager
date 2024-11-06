@@ -26,15 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+import static com.totaldevservices.tdscommons.enums.TDSCommonsConstants.DELETE_CALL;
+import static com.totaldevservices.tdscommons.enums.TDSCommonsConstants.GET_CALL;
+import static com.totaldevservices.tdscommons.enums.TDSCommonsConstants.POST_CALL;
+import static com.totaldevservices.tdscommons.enums.TDSCommonsConstants.PUT_CALL;
 import static com.totaldevservices.transferhistory.enums.Constants.DEAL_FINANCIALS_DETAIL_UPDATED;
-import static com.totaldevservices.transferhistory.enums.Constants.DELETE_CALL;
-import static com.totaldevservices.transferhistory.enums.Constants.GET_CALL;
 import static com.totaldevservices.transferhistory.enums.Constants.DEAL_FINANCIALS_DETAIL_CREATED;
 import static com.totaldevservices.transferhistory.enums.Constants.DEAL_FINANCIALS_DETAIL_DELETED;
 import static com.totaldevservices.transferhistory.enums.Constants.DEAL_FINANCIALS_DETAIL_FETCHED;
-import static com.totaldevservices.transferhistory.enums.Constants.NEGOTIATION_DEAL_DETAIL_UPDATED;
-import static com.totaldevservices.transferhistory.enums.Constants.POST_CALL;
-import static com.totaldevservices.transferhistory.enums.Constants.PUT_CALL;
 
 @Slf4j
 @RestController

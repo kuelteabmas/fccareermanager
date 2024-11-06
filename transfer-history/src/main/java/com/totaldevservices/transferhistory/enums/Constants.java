@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum Constants {
 
     APPEARANCES("Appearances"),
-    GOALS("Clean Sheets"),
+    GOALS("Goals"),
     CLEAN_SHEETS("Clean Sheets"),
 
     NEGOTIATION_DEAL_DETAIL_CREATED("Negotiation Deal Detail created {}"),
@@ -29,12 +29,7 @@ public enum Constants {
     TRANSFER_HISTORY_CREATED("Transfer History Item created {}"),
     TRANSFER_HISTORY_FETCHED("Transfer History Item fetched {}"),
     TRANSFER_HISTORY_UPDATED("Transfer History Item updated {}"),
-    TRANSFER_HISTORY_DELETED("Transfer History Item deleted {}"),
-
-    GET_CALL("Starting GET call"),
-    POST_CALL("Starting POST call"),
-    PUT_CALL("Starting PUT call"),
-    DELETE_CALL("Starting DELETE call");
+    TRANSFER_HISTORY_DELETED("Transfer History Item deleted {}");
 
     private final String message;
 
