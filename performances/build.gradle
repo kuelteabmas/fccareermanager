@@ -1,0 +1,22 @@
+plugins {
+    id 'multi-module-config'
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('postgresqlVersion', '42.7.3')
+    set('junitBomVersion', '5.9.1')
+}
+
+dependencies {
+    implementation project(':tds-commons')
+
+    runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
+    implementation("org.springframework.boot:spring-boot-devtools")
+
+    testImplementation platform("org.junit:junit-bom:${junitBomVersion}")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+}

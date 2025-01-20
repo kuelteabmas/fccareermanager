@@ -1,0 +1,37 @@
+server:
+  port: 8892
+
+spring:
+  application:
+    name: transferhistory
+  datasource:
+    url: jdbc:postgresql://localhost:5892/transferhistorydb
+    username: tds
+    password: fccareermanager
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+        generate_statistics: true # only set in dev, not in prod
+        session:
+          events:
+            log:
+              LOG_QUERIES_SLOWER_THAN_MS: 1 # Log slow queries
+
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+
+logging:
+  level:
+    root: INFO
+    org:
+      hibernate:
+        stat: DEBUG # log statistics
+        SQL: DEBUG # log all SQL statements
+        cache: DEBUG # log cache operations
+
+springdoc:
+  swagger-ui:
+    operationsSorter: method

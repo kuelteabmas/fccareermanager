@@ -1,0 +1,89 @@
+package com.totaldevservices.performances.model;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.UuidGenerator;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@Entity
+@Getter
+@Setter
+@ToString(exclude = {"negotiationDealDetail", "dealFinancialsDetail", "playerGrowthDetail"}) // Avoids cyclic references in toString()
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Table(name = "match_facts_summary")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // serialize the entire object graph by properly configuring JSON annotations - avoids infinite cyclic loop and StackOverflowError
+public class MatchFactsSummary {
+
+    // TODO: Add constraints in model and in service impl
+
+    @Id
+    @UuidGenerator
+    @Schema(name = "id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5")
+    private UUID id;
+
+    @Column(name = "player_id")
+    @Schema(name = "player_id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+    private UUID matchdayId;
+
+    @Column(name = "player_id")
+    @Schema(name = "player_id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+    private UUID playerId;
+
+    @Column(name = "matchday_number")
+    @Schema(name = "matchday_number", example = "23")
+    private int matchdayNumber;
+
+    @Column(name = "home_team_id")
+    @Schema(name = "home_team_id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+    private UUID homeTeamId;
+
+    @Column(name = "away_team_id")
+    @Schema(name = "away_team_id", example = "25e25e41-4cb1-440d-9594-ec351726ceb5", requiredMode = Schema.RequiredMode.REQUIRED)
+    private UUID awayTeamId;
+
+    @Column(name = "away_team_score")
+    @Schema(name = "away_team_score", example = "3", requiredMode = Schema.RequiredMode.REQUIRED)
+    private int awayTeamScore;
+
+    @Column(name = "home_team_score")
+    @Schema(name = "home_team_score", example = "3", requiredMode = Schema.RequiredMode.REQUIRED)
+    private int homeTeamScore;
+
+    @Column(name = "season_transfer_window")
+    @Schema(name = "seasonTransferWindow", example = "Winter", requiredMode = Schema.RequiredMode.REQUIRED)
+    private String seasonTransferWindow;
+
+    @Column(name = "date")
+    @Schema(name = "date", example = "2024-06-15", requiredMode = Schema.RequiredMode.REQUIRED)
+    private LocalDate date;
+
+    @Column(name = "entry_created_date_time")
+    @Schema(name = "entryCreatedDateTime", example = "2024-06-15T21:37:11.676727")
+    private LocalDateTime entryCreatedDateTime;
+
+    @Column(name = "entry_last_updated_date_time")
+    @Schema(name = "entryLastUpdatedDateTime", example = "2024-06-15T21:37:11.676727")
+    private LocalDateTime entryLastUpdatedDateTime;
+
+}
