@@ -4,7 +4,6 @@ import com.totaldevservices.performances.dto.MatchFactsSummaryRequest;
 import com.totaldevservices.performances.dto.MatchFactsSummaryResponse;
 import com.totaldevservices.performances.model.MatchFactsSummary;
 import com.totaldevservices.performances.service.MatchFactsSummaryService;
-import com.totaldevservices.tdscommons.TDSCommons;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,10 +30,10 @@ import static com.totaldevservices.tdscommons.enums.TDSCommonsConstants.DELETE_C
 import static com.totaldevservices.tdscommons.enums.TDSCommonsConstants.GET_CALL;
 import static com.totaldevservices.tdscommons.enums.TDSCommonsConstants.POST_CALL;
 import static com.totaldevservices.tdscommons.enums.TDSCommonsConstants.PUT_CALL;
-import static com.totaldevservices.performances.enums.Constants.TRANSFER_HISTORY_CREATED;
-import static com.totaldevservices.performances.enums.Constants.TRANSFER_HISTORY_DELETED;
-import static com.totaldevservices.performances.enums.Constants.TRANSFER_HISTORY_FETCHED;
-import static com.totaldevservices.performances.enums.Constants.TRANSFER_HISTORY_UPDATED;
+import static com.totaldevservices.performances.enums.Constants.MATCH_FACTS_SUMMARY_CREATED;
+import static com.totaldevservices.performances.enums.Constants.MATCH_FACTS_SUMMARY_DELETED;
+import static com.totaldevservices.performances.enums.Constants.MATCH_FACTS_SUMMARY_FETCHED;
+import static com.totaldevservices.performances.enums.Constants.MATCH_FACTS_SUMMARY_UPDATED;
 
 
 @Slf4j
@@ -45,55 +44,55 @@ public class MatchFactsSummaryController {
 
     private MatchFactsSummaryService matchFactsSummaryService;
 
-    @Operation(summary = "Fetch Transfer History Item by its Id")
+    @Operation(summary = "Fetch Match Facts Summary by its Id")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "200", description = "Transfer History Item fetched",
+                    responseCode = "200", description = "Match Facts Summary fetched",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = MatchFactsSummary.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Invalid id supplied",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "Transfer History Item not found",
+            @ApiResponse(responseCode = "404", description = "Match Facts Summary not found",
                     content = @Content)
     })
     @GetMapping("/{id}")
-    public ResponseEntity<MatchFactsSummaryResponse> getMatchFactsSummaryItemById(
-            @PathVariable("id") @Parameter(description = "id of Transfer History Item to be fetched") UUID id) {
+    public ResponseEntity<MatchFactsSummaryResponse> getMatchFactsSummaryById(
+            @PathVariable("id") @Parameter(description = "id of Match Facts Summary to be fetched") UUID id) {
         log.info(GET_CALL.getMessage());
 
         MatchFactsSummaryResponse response = matchFactsSummaryService.getMatchFactsSummaryById(id);
 
-        log.info(TRANSFER_HISTORY_FETCHED.getMessage(), response);
+        log.info(MATCH_FACTS_SUMMARY_FETCHED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(summary = "Fetch all Transfer History Items")
+    @Operation(summary = "Fetch all Match Facts Summarys")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "200", description = "All Transfer History Items fetched",
+                    responseCode = "200", description = "All Match Facts Summaries fetched",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = MatchFactsSummary.class))
                     }),
-            @ApiResponse(responseCode = "404", description = "Transfer History Items not found",
+            @ApiResponse(responseCode = "404", description = "Match Facts Summaries not found",
                     content = @Content)
     })
     @GetMapping()
-    public ResponseEntity<List<MatchFactsSummaryResponse>> getAllMatchFactsSummaryItems() {
+    public ResponseEntity<List<MatchFactsSummaryResponse>> getAllMatchFactsSummaries() {
         log.info(GET_CALL.getMessage());
 
         List<MatchFactsSummaryResponse> responses = matchFactsSummaryService.getAllMatchFactsSummaries();
 
-        log.info(TRANSFER_HISTORY_FETCHED.getMessage(), responses);
+        log.info(MATCH_FACTS_SUMMARY_FETCHED.getMessage(), responses);
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
-    @Operation(summary = "Create a new Transfer History Item")
+    @Operation(summary = "Create a new Match Facts Summary")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "201", description = "Transfer History Item created",
+                    responseCode = "201", description = "Match Facts Summary created",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = MatchFactsSummary.class))
@@ -101,61 +100,61 @@ public class MatchFactsSummaryController {
     }),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "Transfer History Item cannot be created",
+            @ApiResponse(responseCode = "404", description = "Match Facts Summary cannot be created",
                     content = @Content)
     })
     @PostMapping()
-    public ResponseEntity<MatchFactsSummaryResponse> createMatchFactsSummaryItem(@RequestBody MatchFactsSummaryRequest request) {
+    public ResponseEntity<MatchFactsSummaryResponse> createMatchFactsSummary(@RequestBody MatchFactsSummaryRequest request) {
         log.info(POST_CALL.getMessage());
 
         MatchFactsSummaryResponse response = matchFactsSummaryService.createMatchFactsSummary(request);
 
-        log.info(TRANSFER_HISTORY_CREATED.getMessage(), response);
+        log.info(MATCH_FACTS_SUMMARY_CREATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @Operation(summary = "Update Transfer History Item by its id")
+    @Operation(summary = "Update Match Facts Summary by its id")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "200", description = "Transfer History Item updated",
+                    responseCode = "200", description = "Match Facts Summary updated",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = MatchFactsSummary.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "Transfer History Item cannot be updated",
+            @ApiResponse(responseCode = "404", description = "Match Facts Summary cannot be updated",
                     content = @Content)
     })
     @PutMapping()
-    ResponseEntity<MatchFactsSummaryResponse> updateMatchFactsSummaryItem(@RequestBody MatchFactsSummaryRequest request) {
+    ResponseEntity<MatchFactsSummaryResponse> updateMatchFactsSummary(@RequestBody MatchFactsSummaryRequest request) {
         log.info(PUT_CALL.getMessage());
 
         MatchFactsSummaryResponse response = matchFactsSummaryService.updateMatchFactsSummary(request);
 
-        log.info(TRANSFER_HISTORY_UPDATED.getMessage(), response);
+        log.info(MATCH_FACTS_SUMMARY_UPDATED.getMessage(), response);
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
     }
 
-    @Operation(summary = "Delete Transfer History Item by its id")
+    @Operation(summary = "Delete Match Facts Summary by its id")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "202", description = "Transfer History Item deleted",
+                    responseCode = "202", description = "Match Facts Summary deleted",
                     content = {
                             @Content(mediaType = "application/json",
                             schema = @Schema(implementation = MatchFactsSummary.class))
                     }),
-            @ApiResponse(responseCode = "404", description = "Transfer History Item not found; Cannot be deleted",
+            @ApiResponse(responseCode = "404", description = "Match Facts Summary not found; Cannot be deleted",
                     content = @Content)
     })
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteMatchFactsSummaryItem(
-            @PathVariable @Parameter(description = "id of Transfer History Item to be deleted") UUID id) {
+    ResponseEntity<Void> deleteMatchFactsSummary(
+            @PathVariable @Parameter(description = "id of Match Facts Summary to be deleted") UUID id) {
         log.info(DELETE_CALL.getMessage());
 
         matchFactsSummaryService.deleteMatchFactsSummary(id);
 
-        log.info(TRANSFER_HISTORY_DELETED.getMessage());
+        log.info(MATCH_FACTS_SUMMARY_DELETED.getMessage());
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }
