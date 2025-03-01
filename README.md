@@ -9,6 +9,7 @@
 
 ### Setting up pgAdmin and database
 
+#### Using `docker-compose.yaml`
 **URL:** http://localhost:5852/browser/
 
 Adding a new server
@@ -29,9 +30,14 @@ Username: same as in application.yml
 
 Password: same as in application.yml
 
+#### If not using `docker-compose.yaml` for postgresql and instead using a standalone postgresql instance:
+
+1. Need to create a database called `tds` via pgadmin or via psql cli
+2. If not already, create tds user and give SUPERUSER and LOGIN roles. Follow this link for guidance: https://github.com/kuelteabmas/techtips/blob/main/databases/postgresql.md
+
 ____
 
 ## Start up 
 
 1. Start application per module by running `*Application.java` file
-2. 
+

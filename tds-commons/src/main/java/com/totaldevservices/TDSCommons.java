@@ -11,12 +11,13 @@ import java.sql.Statement;
 @Slf4j
 public class TDSCommons {
 
-    public static void createDbIfNotExists(String databaseName, String port) {
+    public static void createDbIfNotExists(String ip, String databaseName, String port) {
         Connection connection = null;
         Statement statement = null;
         try {
             log.debug(String.format("Creating %s database if not exist...", databaseName));
-            connection = DriverManager.getConnection(String.format("jdbc:postgresql://localhost:%s/", port), "tds", "fccareermanager");
+            String serverConnectionIP = String.format("jdbc:postgresql://%s:%s/", ip, port);
+            connection = DriverManager.getConnection(serverConnectionIP, "tds", "fccareermanager");
             statement = connection.createStatement();
             statement.executeQuery(String.format("SELECT count(*) FROM pg_database WHERE datname = '%s'", databaseName));
             ResultSet resultSet = statement.getResultSet();
