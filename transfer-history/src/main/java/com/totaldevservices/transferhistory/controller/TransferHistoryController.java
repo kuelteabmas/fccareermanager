@@ -88,6 +88,28 @@ public class TransferHistoryController {
         return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
+    @Operation(summary = "Fetch all Transfer History Items for given Player Id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "All Transfer History Items fetched",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = TransferHistoryItem.class))
+                    }),
+            @ApiResponse(responseCode = "404", description = "Transfer History Items not found",
+                    content = @Content)
+    })
+    @GetMapping("/player/{playerId}")
+    public ResponseEntity<List<TransferHistoryItemResponse>> getAllTransferHistoryItemsForPlayerId(
+            @PathVariable("playerId") @Parameter(description = "id of Player") UUID playerId) {
+        log.info(GET_CALL.getMessage());
+
+        List<TransferHistoryItemResponse> responses = transferHistoryService.getAllTransferHistoryItemsForPlayerId(playerId);
+
+        log.info(TRANSFER_HISTORY_FETCHED.getMessage(), responses);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
     @Operation(summary = "Create a new Transfer History Item")
     @ApiResponses(value = {
             @ApiResponse(

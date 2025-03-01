@@ -62,6 +62,22 @@ public class TransferHistoryServiceImpl implements TransferHistoryService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<TransferHistoryResponse> getAllTransferHistoryItemsForPlayerId(UUID playerId) {
+
+        /** Rework idea for performanace
+         * findAll for negotiationDealDetailRepository, dealFinancialsDetailRepository and playerGrowthDetailRepository
+         * then store in cache (redis)
+         * parse data and build response for getAllTransferHistoryItems()
+         **/
+
+        // findAll by playerId
+        return transferHistoryRepository.findAllByPlayerId(playerId)
+                .stream()
+                .map(transferHistoryItem -> transferHistoryMapper.map(transferHistoryItem))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     @Override
     public TransferHistoryResponse createTransferHistory(TransferHistoryRequest request) {
