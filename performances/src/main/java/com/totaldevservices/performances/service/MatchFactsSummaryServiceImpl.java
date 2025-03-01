@@ -26,26 +26,20 @@ public class MatchFactsSummaryServiceImpl implements MatchFactsSummaryService {
 
     @Override
     public MatchFactsSummaryResponse getMatchFactsSummaryById(UUID matchFactsSummaryId) {
-        Optional<MatchFactsSummary> matchFactsSummaryItemOptional =
+        Optional<MatchFactsSummary> matchFactsSummaryOptional =
                 Optional.of(matchFactsSummaryRepository.findById(matchFactsSummaryId)
                 .orElseThrow());
 
-        return matchFactsSummaryMapper.map(matchFactsSummaryItemOptional.get());
+        return matchFactsSummaryMapper.map(matchFactsSummaryOptional.get());
     }
 
     @Override
     public List<MatchFactsSummaryResponse> getAllMatchFactsSummaries() {
 
-        /** Rework idea for performanace
-         * findAll for negotiationDealDetailRepository, dealFinancialsDetailRepository and playerGrowthDetailRepository
-         * then store in cache (redis)
-         * parse data and build response for getAllMatchFactsSummaryItems()
-         **/
-
         // findAll by playerId
         return matchFactsSummaryRepository.findAll()
                 .stream()
-                .map(matchFactsSummaryItem -> matchFactsSummaryMapper.map(matchFactsSummaryItem))
+                .map(matchFactsSummary -> matchFactsSummaryMapper.map(matchFactsSummary))
                 .collect(Collectors.toList());
     }
 
@@ -53,16 +47,37 @@ public class MatchFactsSummaryServiceImpl implements MatchFactsSummaryService {
     @Override
     public MatchFactsSummaryResponse createMatchFactsSummary(MatchFactsSummaryRequest request) {
 
-        // TODO: Check if the playerId exists before continuing once player db work is complete
-
 
         MatchFactsSummary matchFactsSummary = MatchFactsSummary.builder()
-                .playerId(request.getPlayerId())
-                .age(request.getAge())
-                .seasonYear(request.getSeasonYear())
-                .seasonTransferWindow(request.getSeasonTransferWindow())
+                .id(request.getId())
+                .matchdayNumber(request.getMatchdayNumber())
+                .homeTeamId(request.getHomeTeamId())
+                .homeTeamScore(request.getHomeTeamScore())
+                .awayTeamId(request.getAwayTeamId())
+                .awayTeamScore(request.getAwayTeamScore())
                 .date(request.getDate())
                 .entryCreatedDateTime(LocalDateTime.now())
+                .entryLastUpdatedDateTime(LocalDateTime.now())
+                .possession(request.getPossession())
+                .ballRecoveryTimeInSeconds(request.getBallRecoveryTimeInSeconds())
+                .shots(request.getShots())
+                .expectedGoals(request.getExpectedGoals())
+                .passes(request.getPasses())
+                .tackles(request.getTackles())
+                .tacklesWon(request.getTacklesWon())
+                .interceptions(request.getInterceptions())
+                .saves(request.getSaves())
+                .fouls(request.getFouls())
+                .offsides(request.getOffsides())
+                .corners(request.getCorners())
+                .freeKicks(request.getFreeKicks())
+                .penaltyKicks(request.getPenaltyKicks())
+                .yellowCards(request.getYellowCards())
+                .redCards(request.getRedCards())
+                .defenseLineBreaksThrough(request.getDefenseLineBreaksThrough())
+                .defenseLineBreaksAround(request.getDefenseLineBreaksAround())
+                .defenseLineBreaksOver(request.getDefenseLineBreaksOver())
+                .defenseLineBreaksAttempted(request.getDefenseLineBreaksAttempted())
                 .build();
 
         matchFactsSummaryRepository.save(matchFactsSummary);
@@ -77,28 +92,36 @@ public class MatchFactsSummaryServiceImpl implements MatchFactsSummaryService {
         MatchFactsSummary matchFactsSummary = matchFactsSummaryRepository.findById(request.getId())
                 .orElseThrow(() -> new EntityNotFoundException("MatchFactsSummary not found with id: " + request.getId()));
 
-
-        // TODO: Check that trasnferhistoryId matches in all related tables (negotiationDealDetail, dealFinancialsDetail, playerGrowthDetail)
-//            if ((matchFactsSummary.getId() != negotiationDealDetail.getMatchFactsSummary().getId()) ||
-//                    (matchFactsSummary.getId() != dealFinancialsDetail.getMatchFactsSummary().getId()) ||
-//                    (matchFactsSummary.getId() != playerGrowthDetail.getMatchFactsSummary().getId())) {
-//                  throw new Exception();
-//            }
-
-        // TODO: Check if request and existing db record are different prior to making update call
-
-        // TODO: Check if request body is valid
-
-
         matchFactsSummary.setId(matchFactsSummary.getId());
-        matchFactsSummary.setPlayerId(request.getPlayerId());
-        matchFactsSummary.setAge(request.getAge());
-        matchFactsSummary.setSeasonYear(request.getSeasonYear());
-        matchFactsSummary.setSeasonTransferWindow(request.getSeasonTransferWindow());
+        matchFactsSummary.setMatchdayNumber(request.getMatchdayNumber());
+        matchFactsSummary.setHomeTeamId(request.getHomeTeamId());
+        matchFactsSummary.setHomeTeamScore(request.getHomeTeamScore());
+        matchFactsSummary.setAwayTeamId(request.getAwayTeamId());
+        matchFactsSummary.setAwayTeamScore(request.getAwayTeamScore());
         matchFactsSummary.setDate(request.getDate());
         matchFactsSummary.setEntryLastUpdatedDateTime(LocalDateTime.now());
+        matchFactsSummary.setPossession(request.getPossession());
+        matchFactsSummary.setBallRecoveryTimeInSeconds(request.getBallRecoveryTimeInSeconds());
+        matchFactsSummary.setShots(request.getShots());
+        matchFactsSummary.setExpectedGoals(request.getExpectedGoals());
+        matchFactsSummary.setPasses(request.getPasses());
+        matchFactsSummary.setTackles(request.getTackles());
+        matchFactsSummary.setTacklesWon(request.getTacklesWon());
+        matchFactsSummary.setInterceptions(request.getInterceptions());
+        matchFactsSummary.setSaves(request.getSaves());
+        matchFactsSummary.setFouls(request.getFouls());
+        matchFactsSummary.setOffsides(request.getOffsides());
+        matchFactsSummary.setCorners(request.getCorners());
+        matchFactsSummary.setFreeKicks(request.getFreeKicks());
+        matchFactsSummary.setPenaltyKicks(request.getPenaltyKicks());
+        matchFactsSummary.setYellowCards(request.getYellowCards());
+        matchFactsSummary.setRedCards(request.getRedCards());
+        matchFactsSummary.setDefenseLineBreaksThrough(request.getDefenseLineBreaksThrough());
+        matchFactsSummary.setDefenseLineBreaksAround(request.getDefenseLineBreaksAround());
+        matchFactsSummary.setDefenseLineBreaksOver(request.getDefenseLineBreaksOver());
+        matchFactsSummary.setDefenseLineBreaksAttempted(request.getDefenseLineBreaksAttempted());
 
-        // todo: check if matchFactsSummaryItem is valid
+        // todo: check if matchFactsSummary is valid
 
         matchFactsSummaryRepository.save(matchFactsSummary);
 
@@ -107,10 +130,10 @@ public class MatchFactsSummaryServiceImpl implements MatchFactsSummaryService {
 
     @Override
     public void deleteMatchFactsSummary(UUID id) {
-        Optional<MatchFactsSummary> matchFactsSummaryItemOptional = matchFactsSummaryRepository.findById(id);
+        Optional<MatchFactsSummary> matchFactsSummaryOptional = matchFactsSummaryRepository.findById(id);
 
         // TODO: Throw Exception if ID doesn't exist in db
 
-        matchFactsSummaryRepository.delete(matchFactsSummaryItemOptional.get());
+        matchFactsSummaryRepository.delete(matchFactsSummaryOptional.get());
     }
 }

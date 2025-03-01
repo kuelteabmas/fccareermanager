@@ -38,7 +38,7 @@ import static com.totaldevservices.performances.enums.Constants.MATCH_FACTS_SUMM
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/transferhistory")
+@RequestMapping("api/v1/match-facts-summary")
 @AllArgsConstructor
 public class MatchFactsSummaryController {
 
@@ -68,7 +68,8 @@ public class MatchFactsSummaryController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @Operation(summary = "Fetch all Match Facts Summarys")
+    // TODO: Replace with "Fetch all Match Facts Summaries by Team Id"
+    @Operation(summary = "Fetch all Match Facts Summaries")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200", description = "All Match Facts Summaries fetched",
