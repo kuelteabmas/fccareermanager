@@ -63,7 +63,7 @@ public class TransferHistoryServiceImpl implements TransferHistoryService {
     }
 
     @Override
-    public List<TransferHistoryResponse> getAllTransferHistoryItemsForPlayerId(UUID playerId) {
+    public List<TransferHistoryResponse> getAllTransferHistoriesForPlayerId(UUID playerId) {
 
         /** Rework idea for performanace
          * findAll for negotiationDealDetailRepository, dealFinancialsDetailRepository and playerGrowthDetailRepository
