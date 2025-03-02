@@ -1,5 +1,6 @@
 plugins {
     id 'multi-module-config'
+    id 'com.google.cloud.tools.jib' version '3.4.4'
 }
 
 repositories {
@@ -19,4 +20,17 @@ dependencies {
 
     testImplementation platform("org.junit:junit-bom:${junitBomVersion}")
     testImplementation "org.junit.jupiter:junit-jupiter"
+}
+
+jib {
+    from {
+        image = 'amazoncorretto:21-alpine-jdk'
+    }
+    to {
+        image = 'kuelteabmas/fccareermanager-transferhistory'
+        tags = ['1.0.5-SNAPSHOT', 'latest']
+    }
+    container {
+        mainClass = 'com.totaldevservices.transferhistory.TransferHistoryApplication'
+    }
 }
