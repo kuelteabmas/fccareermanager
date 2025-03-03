@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'gradle build'
+                sh './gradlew build'
             }
         }
         stage('Publish to Docker Hub') {
