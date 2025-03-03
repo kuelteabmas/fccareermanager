@@ -1,0 +1,7 @@
+services:
+  fccareermanager-transferhistory:
+    container_name: fccareermanager-transferhistory
+    image: kuelteabmas/fccareermanager-transferhistory:latest
+    ports:
+      - "8899:8892"
+    restart: unless-stopped
