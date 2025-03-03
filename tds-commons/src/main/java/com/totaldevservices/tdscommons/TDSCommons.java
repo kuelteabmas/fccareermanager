@@ -1,6 +1,7 @@
 package com.totaldevservices.tdscommons;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,11 +10,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 @Slf4j
+@Component
 public class TDSCommons {
 
     public static void createDbIfNotExists(String ip, String databaseName, String port) {
         Connection connection = null;
         Statement statement = null;
+        log.debug("databaseName: ", databaseName);
+        log.info("databaseName: ", databaseName);
         try {
             log.debug(String.format("Creating %s database if not exist...", databaseName));
             String serverConnectionIP = String.format("jdbc:postgresql://%s:%s/", ip, port);
