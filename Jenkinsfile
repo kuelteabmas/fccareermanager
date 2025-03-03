@@ -2,6 +2,11 @@ pipeline {
     agent any
 
     stages {
+        stage('Change Dir to transfer-history ') {
+            steps {
+                sh 'cd transfer-history'
+            }
+        }
         stage('Build') {
             steps {
                 sh './gradlew build'
