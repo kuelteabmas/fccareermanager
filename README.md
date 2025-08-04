@@ -48,7 +48,7 @@ ____
 ### Building and pushing image to DockerHub
 
 1. Need to have Docker credentials for your CLI. You can check `~/.docker/config.json` if it's present and have token contents. Start here https://docs.docker.com/reference/cli/docker/login/ if needed
-2. Run `./gradlew jib` and it's package, build and push the created image to your DockerHub repo 
+2. Run `./gradlew jib` and it's package, build and push the created image to your DockerHub repo. More info   on Jib https://github.com/GoogleContainerTools/jib
 3. (Optional) Run locally:  docker run --rm --name fccareermanager-transferhistory -p 8899:8892 kuelteabmas/fccareermanager-transferhistory:1.0.5-SNAPSHOT
 
 --- 
