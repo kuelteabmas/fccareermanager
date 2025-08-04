@@ -8,7 +8,7 @@ import static com.totaldevservices.tdscommons.TDSCommons.createDbIfNotExists;
 @SpringBootApplication
 public class TransferHistoryApplication {
     public static void main(String[] args) {
-        createDbIfNotExists("192.168.12.165", "transferhistorydb", "5432");
+        createDbIfNotExists("localhost", "transferhistorydb", "5432");
         SpringApplication.run(TransferHistoryApplication.class, args);
     }
 }

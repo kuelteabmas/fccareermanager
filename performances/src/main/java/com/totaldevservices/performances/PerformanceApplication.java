@@ -8,7 +8,7 @@ import static com.totaldevservices.tdscommons.TDSCommons.createDbIfNotExists;
 @SpringBootApplication
 public class PerformanceApplication {
     public static void main(String[] args) {
-        createDbIfNotExists("192.168.12.165", "performancesdb", "5432");
+        createDbIfNotExists("localhost", "performancesdb", "5432");
         SpringApplication.run(PerformanceApplication.class, args);
     }
 }

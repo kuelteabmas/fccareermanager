@@ -5,7 +5,7 @@ spring:
   application:
     name: transferhistory
   datasource:
-    url: jdbc:postgresql://192.168.12.165:5432/transferhistorydb
+    url: jdbc:postgresql://localhost:5432/transferhistorydb
     username: tds
     password: fccareermanager
   jpa:

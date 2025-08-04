@@ -5,7 +5,7 @@ spring:
   application:
     name: performances
   datasource:
-    url: jdbc:postgresql://192.168.12.165:5432/performancesdb
+    url: jdbc:postgresql://localhost:5432/performancesdb
     username: tds
     password: fccareermanager
   jpa:
