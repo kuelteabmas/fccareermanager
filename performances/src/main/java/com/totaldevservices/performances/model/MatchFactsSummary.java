@@ -23,7 +23,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = {"negotiationDealDetail", "dealFinancialsDetail", "playerGrowthDetail"}) // Avoids cyclic references in toString()
+@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
