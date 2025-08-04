@@ -32,5 +32,6 @@ jib {
     }
     container {
         mainClass = 'com.totaldevservices.transferhistory.TransferHistoryApplication'
+        creationTime = 'USE_CURRENT_TIMESTAMP'
     }
 }
