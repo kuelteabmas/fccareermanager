@@ -15,6 +15,21 @@ services:
       - fccareermanager-postgresnetwork
     restart: unless-stopped
 
+  postgres-performances:
+    container_name: postgres-performances
+    image: postgres
+    environment:
+      POSTGRES_USER: tds
+      POSTGRES_PASSWORD: fccareermanager
+      PGDATA: /data/postgres
+    volumes:
+      - postgres-performances:/data/postgres
+    ports:
+      - "5893:5432"
+    networks:
+      - fccareermanager-postgresnetwork
+    restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin-fccareermanager
     image: dpage/pgadmin4
@@ -36,4 +51,5 @@ networks:
 
 volumes:
   postgres-transferhistory:
+  postgres-performances:
   pgadmin:

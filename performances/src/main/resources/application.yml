@@ -1,11 +1,11 @@
 server:
-  port: 8892
+  port: 8893
 
 spring:
   application:
     name: performances
   datasource:
-    url: jdbc:postgresql://localhost:5432/performancesdb
+    url: jdbc:postgresql://192.168.12.107:5893/performancesdb
     username: tds
     password: fccareermanager
   jpa:
